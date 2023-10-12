@@ -1,136 +1,124 @@
+'use client';
 import CallToAction from '@/src/forms/call-to-action';
-import React, { use, useEffect } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import Link from "next/link";
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
+export async function getServerSideProps(context) {
+    const { id } = context.query;
+    const response = await fetch('YOUR_API_ENDPOINT');
+    const data = await response.json();
 
-
-const service_details_content = {
-    img: "/assets/img/services/service-details-bg.jpg",
-    title: "Area Sales Analyst (PALEMBANG dan JAMBI)",
-    info_1: <>CCTV stands for closed-circuit television. So how does a modern CCTV system work? The answer depends
-        on the type of system involved. The systems are best defined by the types of cameras used. There are two
-        common types of cameras in use today: Analog and IP-based cameras.</>,
-    info_2: <>CCTV, also known as closed-circuit television, is a security monitor system that enables you to always keep
-        a watchful eye around or in your business. CCTV security systems contain monitors and cameras that allow
-        you to view live events, as well as recorders that archive footage for later use. A CCTV is a video surveillance
-        system that is placed in security cameras to help record images and videos in a home, business property, &
-        even on the roads. The camera works by monitoring, recording video images and transmitting them to a
-        monitor. A CCTV is therefore used primarily for security purposes</>,
-
-    // over-veiw-list
-    over_veiw_list: [
-        { id: 1, icon: "flaticon-cctv-camera", title: "Reasonable Pricing" },
-        { id: 2, icon: "flaticon-bubble-chat-1", title: "Quality Services" },
-        { id: 3, icon: "flaticon-group", title: "Professional Team" },
-        { id: 4, icon: "flaticon-secure", title: "24/7 Online Support" },
-        { id: 5, icon: "flaticon-web-security", title: "Get Free Estimation" },
-        { id: 6, icon: "flaticon-security", title: "Get In Touch" },
-    ],
-
-    overview: <>A CCTV is a video surveillance  system that is placed in security cameras to help record images and videos in
-        a home, business property, & even on the roads. The camera works by monitoring, recording video images &
-        transmitting them to a monitor. A CCTV is therefore used primarily for security purposes</>,
-
-    overview_features: [
-        {
-            id: 1,
-            features: [
-                "Mi 360° 1080p Full HD WiFi Smart Security Camera.",
-                "TP-Link Tapo C100 1080p Full HD Indoor WiFi Security Camera.",
-                "Yi 87001 Home Camera Wireless IP Security Surveillance System",
-            ],
-        },
-        {
-            id: 2,
-            features: [
-                "TP-Link Tapo C200 Smart Cam Pan Tilt Home WiFi Camera.",
-                "You can operate CCTV cameras without the internet or data center.",
-                "Qubo Smart Cam 360",
-            ],
-        },
-    ],
-
-    bottom_info_title: "What is difference between CCTV and TV?",
-    bottom_info: <>The difference between CCTV and standard TV is that standard TV openly broadcasts signals to the public.
-        In contrast, CCTV broadcasts are not sent to the public. CCTV uses either a wired or wireless transmission
-        to transmit the broadcast from the video cameras to the monitor(s) or recording device.</>,
-
-    service: [
-        { id: 1, icon: "fas fa-cctv", title: "Install & Configure" },
-        { id: 2, icon: "fas fa-video", title: "Repair & Service" },
-        { id: 3, icon: "fas fa-cogs", title: "Maintenance" },
-        { id: 4, icon: "fas fa-camera", title: "Video Verification" },
-        { id: 5, icon: "far fa-tv", title: "Interactive Security" },
-    ],
-
-    materials: [
-        { id: 1, icon: "fas fa-file-pdf", title: "Company Profile" },
-        { id: 2, icon: "fas fa-file-image", title: "Service Details" },
-        { id: 3, icon: "fas fa-file-prescription", title: "Service Technician" },
-    ]
-
-
+    return {
+        props: {
+            data
+        }
+    };
 }
 
-const { img, title, info_1, info_2, over_veiw_list, overview, overview_features, bottom_info_title, bottom_info, service, materials } = service_details_content
+const ServiceDetailsArea = ({ data }) => {
 
 
+    const router = useRouter();
+    const { id__ } = router.query; // Mengambil parameter 'id' dari URL
+    const [job, setJob] = useState([]);
+    const [description, setDescription] = useState([]);
+    const [qualification, setQualification] = useState([]);
+    // const fetchData = async (id) => await axios.get(`https://testing.profectaperdana.com/api/job_vacancies/${id}`)
+    //     .then(function (response) {
+    //         // handle success
+    //         console.log(response.data.data);
+    //         setJob(response.data.data);
+    //     })
+    //     .catch(function (error) {
+    //         // handle error
+    //         console.log(error);
+    //     })
+    // const fetchDataDescription = async () => await axios.get(`https://testing.profectaperdana.com/api/job_description/${id}`)
+    //     .then(function (response) {
+    //         // handle success
+    //         setDescription(response.data.data);
+    //     })
+    //     .catch(function (error) {
+    //         // handle error
+    //         console.log(error);
+    //     })
+    // const fetchQualification = async () => axios.get(`https://testing.profectaperdana.com/api/job_qualification/${id}`)
+    //     .then(function (response) {
+    //         // handle success
+    //         setQualification(response.data.data);
+    //     })
+    //     .catch(function (error) {
+    //         // handle error
+    //         console.log(error);
+    //     })
 
-const ServiceDetailsArea = () => {
+    //useEffect
+    // useEffect(() => {
 
+    //     //call function "fetchData"
+    //     fetchData();
+    //     fetchDataDescription();
+    //     fetchQualification();
+
+    // }, []);
     return (
         <>
             <div className="tp-service-details-area pt-115 pb-115">
                 <div className="container">
                     <div className="row">
+                        <div className="col-xl-12 mb-20">
+                            <button onClick={ () => router.back() } className="tp-btn w-10 rounded" href="#"><i className="fal fa-long-arrow-left"></i> Back </button>
+                        </div>
                         <div className="col-xl-12">
                             <div className="tp-service-overveiw-area mr-20">
                                 <div className="tp-overview-details">
-                                    <h2 className="overview-title">{ title }</h2>
-                                    <p>{ info_1 }</p>
+                                    <h2 className="overview-title">{ job.title }</h2>
+                                    <h4 className="overview-title">{ job.position }</h4>
+                                    <p>{ job.description }</p>
                                     {/* <p>{ info_2 }</p> */ }
-
-                                    <div className="tp-overview-fea-list">
+                                    {/* <div className="tp-overview-fea-list">
                                         <h4>Job description: </h4>
                                         <div className="row">
-                                            { overview_features.map((item, i) =>
-                                                <div key={ i } className="col-xl-6">
-                                                    <div className="tp-overview-feature">
-                                                        <ul>
-                                                            { item.features?.map((feature, index) =>
-                                                                <li key={ index }>
-                                                                    <i className="fal fa-check"></i>
-                                                                    { feature }
-                                                                </li>
-                                                            ) }
-                                                        </ul>
-                                                    </div>
+                                            <div className="col-xl-6">
+                                                <div className="tp-overview-feature">
+                                                    <ul>
+                                                        { description.map((item, i) =>
+                                                            <li>
+                                                                <i className="fal fa-check"></i>
+                                                                { item.name }
+                                                            </li>
+                                                        ) }
+                                                    </ul>
                                                 </div>
-                                            ) }
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div className="tp-overview-fea-list">
                                         <h4>Qualification: </h4>
                                         <div className="row">
-                                            { overview_features.map((item, i) =>
-                                                <div key={ i } className="col-xl-6">
-                                                    <div className="tp-overview-feature">
-                                                        <ul>
-                                                            { item.features?.map((feature, index) =>
-                                                                <li key={ index }>
-                                                                    <i className="fal fa-check"></i>
-                                                                    { feature }
-                                                                </li>
-                                                            ) }
-                                                        </ul>
-                                                    </div>
+
+                                            <div className="col-xl-6">
+                                                <div className="tp-overview-feature">
+                                                    <ul>
+                                                        { qualification.map((item, i) =>
+                                                            <li>
+                                                                <i className="fal fa-check"></i>
+                                                                { item.name }
+                                                            </li>
+                                                        ) }
+                                                    </ul>
                                                 </div>
-                                            ) }
+                                            </div>
+
                                         </div>
-                                    </div>
+                                    </div> */}
+
                                 </div>
                                 <div className="tpservices__btn mt-50">
-                                    <Link href={ "/form-apply" }>
+                                    <Link href={ `form-apply/${job.position}` }>
                                         <button className="tp-btn w-100 rounded" href="#">Apply Now <i className="fal fa-long-arrow-right"></i></button>
                                     </Link>
                                 </div>
@@ -139,7 +127,7 @@ const ServiceDetailsArea = () => {
 
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     );
 };
