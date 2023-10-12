@@ -1,7 +1,7 @@
 import React from "react";
 import Wrapper from "../layout/wrapper";
 import SEO from "../common/seo";
-import FormApply from "../components/form-apply";
+
 
 const index = () => {
   return (
