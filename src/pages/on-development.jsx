@@ -31,10 +31,10 @@ const index = () => {
                           <TypeWriter
                             onInit={(typewriter) => {
                               typewriter
-                                .typeString("Welcome to Profecta Perdana")
+                                .typeString("Website is under developement")
                                 .pauseFor(1000)
                                 .deleteAll()
-                                .typeString("Website is under developement")
+                                .typeString("Sorry for the inconvenience")
                                 .start();
                             }}
                           />
@@ -44,7 +44,7 @@ const index = () => {
                           If you're interested in joining us, please proceed to
                           the button below.
                         </h4>
-                        <Link href={"/"}>
+                        <Link href={"/career"}>
                           <button className="tp-btn-2">Join Us</button>
                         </Link>
                       </div>
