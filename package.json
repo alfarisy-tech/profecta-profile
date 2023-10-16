@@ -28,6 +28,7 @@
     "react-use": "^17.4.0",
     "sass": "^1.60.0",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.7.32",
     "typewriter-effect": "^2.21.0",
     "wowjs": "^1.1.3"
   }

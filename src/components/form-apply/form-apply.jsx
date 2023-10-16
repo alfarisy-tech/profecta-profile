@@ -1,16 +1,29 @@
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleCheck, faCircleXmark, faHourglassHalf, faHouse } from "@fortawesome/free-solid-svg-icons"
+import Swal from 'sweetalert2';
+import Form from 'react-bootstrap/Form';
+
 const CheckoutArea = () => {
     const router = useRouter();
-    const slug = router.query.slug; // Mengambil parameter 'id' dari URL
-    const slugString = String(slug);
-    const position = slugString.split('-').join(' ').toLocaleUpperCase();
+    const [position, setPosition] = useState('');
+    const [validated, setValidated] = useState(false);
+
+    useEffect(() => {
+        // Memperbarui 'position' jika 'slug' berubah
+        if (router.query.slug) {
+            const slugString = String(router.query.slug);
+            const newPosition = slugString.split('-').join(' ').toLocaleUpperCase();
+            setPosition(newPosition);
+            setRegisterData({ ...registerData, position: newPosition });
+        }
+    }, [router.query.slug]);
 
 
+    const [errors, setErrors] = useState([]);
 
     // form data
     const [registerData, setRegisterData] = useState({
@@ -28,43 +41,64 @@ const CheckoutArea = () => {
         major: '',
         file: '',
     });
+
     const [btnLoading, setBtnLoading] = useState(false);
 
     const changeHandler = (e) => {
         setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+        console.log(registerData);
     };
     const submitHandler = async (e) => {
         e.preventDefault();
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        setValidated(true);
         setBtnLoading(true);
+
         try {
-            const response = await fetch('/api/auth/register', {
+            const response = await fetch('https://testing.profectaperdana.com/api/job_vacancies', {
                 method: 'POST',
                 body: JSON.stringify(registerData),
                 headers: {
                     'Content-Type': 'application/json',
-                },
+                }
             });
-            const responseData = await response.json();
-            setAlert({ message: responseData.message, status: responseData.status })
-            setRegisterData({ name: '', email: '', password: '' });
+
+            if (response.status === 201) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thank you for applying',
+                    text: 'We will contact you soon',
+                });
+                router.push('/');
+            }
         } catch (error) {
-            console.log(error);
-        }
-        setTimeout(() => {
+            // Handle the error here and set the error message to state "errors"
+            // console.error('Error:', error);
+
+            setErrors(error.message); // Assuming error.message contains the error message you want to display
+            console.log(error.message);
+        } finally {
             setBtnLoading(false);
-        }, 1500);
-    }
+        }
+    };
+
     return (
         <>
 
 
             <section className="checkout-area pb-70 pt-100 pb-30">
                 <div className="container">
-                    <form onSubmit={ submitHandler }>
-                        <div className="row">
-                            <div className="col-xl-12 mb-20">
-                                <button onClick={ () => router.back() } className="btn btn-danger w-10 rounded" href="#"><i className="fal fa-long-arrow-left"></i> Back </button>
-                            </div>
+
+                    <div className="row">
+                        <div className="col-xl-12 mb-20">
+                            <button onClick={ () => router.back() } className="btn btn-danger w-10 rounded" href="#"><i className="fal fa-long-arrow-left"></i> Back </button>
+                        </div>
+                        <Form noValidate validated={ validated } onSubmit={ submitHandler }>
                             <div className="col-lg-12">
                                 <div className="checkbox-form">
                                     <h3>Applican Data</h3>
@@ -72,12 +106,16 @@ const CheckoutArea = () => {
                                     <div className="row">
                                         <div className="col-md-12 mb-20">
                                             <label>Position<span className="required">*</span></label>
-                                            <input onChange={ changeHandler } readOnly name='position' className='form-control fw-bold text-uppercase' value={ position } type="text" placeholder="" />
+                                            <input readOnly name='position' id='position' className='form-control fw-bold text-uppercase' value={ position } type="text" placeholder="" />
                                         </div>
                                         <div className="col-md-12 mb-20">
                                             <label>NIK <span className="required">*</span></label>
                                             <input value={ registerData.nik }
                                                 onChange={ changeHandler } name='nik' className='form-control text-uppercase' type="text" placeholder="" />
+                                            <Form.Control.Feedback type="invalid">
+                                                Please choose a username.
+                                            </Form.Control.Feedback>
+
                                         </div>
                                         <div className="col-md-6 mb-20">
                                             <label>First Name <span className="required">*</span></label>
@@ -136,16 +174,13 @@ const CheckoutArea = () => {
                                                 type="submit"
                                                 disabled={ btnLoading }
                                                 className="tp-btn w-100 rounded"
-                                            >{ !btnLoading ? 'Submit ' : (<><FontAwesomeIcon icon={ faHourglassHalf } spin spinReverse />   Loading...</>) } </button>
+                                            >{ !btnLoading ? 'Submit ' : (<>Loading...</>) } </button>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
-
-                        </div>
-                    </form>
+                        </Form>
+                    </div>
                 </div>
             </section>
         </>
