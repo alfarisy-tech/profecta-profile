@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCircleCheck, faCircleXmark, faHourglassHalf, faHouse } from "@fortawesome/free-solid-svg-icons"
 import Swal from 'sweetalert2';
-import Form from 'react-bootstrap/Form';
 
 const CheckoutArea = () => {
     const router = useRouter();
@@ -98,7 +97,7 @@ const CheckoutArea = () => {
                         <div className="col-xl-12 mb-20">
                             <button onClick={ () => router.back() } className="btn btn-danger w-10 rounded" href="#"><i className="fal fa-long-arrow-left"></i> Back </button>
                         </div>
-                        <Form noValidate validated={ validated } onSubmit={ submitHandler }>
+                        <form onSubmit={ submitHandler }>
                             <div className="col-lg-12">
                                 <div className="checkbox-form">
                                     <h3>Applican Data</h3>
@@ -112,9 +111,11 @@ const CheckoutArea = () => {
                                             <label>NIK <span className="required">*</span></label>
                                             <input value={ registerData.nik }
                                                 onChange={ changeHandler } name='nik' className='form-control text-uppercase' type="text" placeholder="" />
-                                            <Form.Control.Feedback type="invalid">
-                                                Please choose a username.
-                                            </Form.Control.Feedback>
+                                            { errors.nik && (
+                                                <div className="alert alert-danger">
+                                                    { errors.nik[0] }
+                                                </div>
+                                            ) }
 
                                         </div>
                                         <div className="col-md-6 mb-20">
@@ -179,7 +180,7 @@ const CheckoutArea = () => {
                                     </div>
                                 </div>
                             </div>
-                        </Form>
+                        </form>
                     </div>
                 </div>
             </section>
