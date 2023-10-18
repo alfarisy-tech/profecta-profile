@@ -17,40 +17,23 @@ const ServiceDetailsArea = () => {
     const fetchData = async () => await axios.get(`https://testing.profectaperdana.com/api/job_vacancies/${id}`)
         .then(function (response) {
             // handle success
+            const jobVacancies = response.data.data;
             setJob(response.data.data);
             setSlug(response.data.data.position);
+            setDescription(jobVacancies.job_description);
+            setQualification(jobVacancies.job_qualification);
         })
         .catch(function (error) {
             // handle error
-            console.log(error);
         })
-    const fetchDataDescription = async () => await axios.get(`https://testing.profectaperdana.com/api/job_description/${id}`)
-        .then(function (response) {
-            // handle success
-            setDescription(response.data.data);
 
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-    const fetchQualification = async () => axios.get(`https://testing.profectaperdana.com/api/job_qualification/${id}`)
-        .then(function (response) {
-            // handle success
-            setQualification(response.data.data);
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
 
     //useEffect
     useEffect(() => {
 
         //call function "fetchData"
         fetchData();
-        fetchDataDescription();
-        fetchQualification();
+
 
     }, [id]);
 
@@ -67,6 +50,7 @@ const ServiceDetailsArea = () => {
                             <div className="col-xl-12">
                                 <div className="tp-service-overveiw-area mr-20">
                                     <div className="tp-overview-details">
+                                        <p>Post : { job.date_post } | <span> Ended : { job.end_date }</span></p>
                                         <h2 className="overview-title">{ job.title }</h2>
 
                                         <h4 >{ job.position }</h4>
@@ -107,10 +91,8 @@ const ServiceDetailsArea = () => {
                                                         </ul>
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
-
                                     </div>
                                     <div className="tpservices__btn mt-50">
                                         <Link href={ `/form-apply/${slugLink}` }>

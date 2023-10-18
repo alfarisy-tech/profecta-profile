@@ -9,7 +9,7 @@ import { color } from "framer-motion";
 const index = () => {
   return (
     <>
-      <SEO pageTitle={"Website is under developement"} />
+      <SEO pageTitle={ "Website is under developement" } />
       <HeaderOne />
       <div id="smooth-wrapper error_page">
         <div id="smooth-content">
@@ -21,30 +21,30 @@ const index = () => {
                     <div className="card shadow mb-50 mt-50">
                       <div
                         className="tp-error-content-box text-center mb-50 mt-50"
-                        style={{ height: "300px" }}
+                        style={ { height: "300px" } }
                       >
-                        {/* <img src="/assets/img/text-404.png" alt="theme-pure" /> */}
+                        {/* <img src="/assets/img/text-404.png" alt="theme-pure" /> */ }
                         <h1
                           className="display-4 fw-bold"
-                          style={{ color: "#84b544", height: "110px" }}
+                          style={ { color: "#84b544", height: "110px" } }
                         >
                           <TypeWriter
-                            onInit={(typewriter) => {
+                            onInit={ (typewriter) => {
                               typewriter
                                 .typeString("Website is under developement")
                                 .pauseFor(1000)
                                 .deleteAll()
                                 .typeString("Sorry for the inconvenience")
                                 .start();
-                            }}
+                            } }
                           />
                         </h1>
-                        {/* <h4 className="error-title-sm">Oops.! Page Not Found!</h4> */}
+                        {/* <h4 className="error-title-sm">Oops.! Page Not Found!</h4> */ }
                         <h4 className="mt-80 mb-30">
                           If you're interested in joining us, please proceed to
                           the button below.
                         </h4>
-                        <Link href={"/career"}>
+                        <Link href={ "/career" }>
                           <button className="tp-btn-2">Join Us</button>
                         </Link>
                       </div>

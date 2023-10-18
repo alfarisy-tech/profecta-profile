@@ -5,32 +5,63 @@ import React, { use, useState, useEffect } from 'react';
 import Link from "next/link";
 import { color } from 'framer-motion';
 import axios from 'axios';
+import Pagination from '@/src/common/pagination';
 
 const ServiceArea = () => {
-
-
     const [job, setJob] = useState([]);
-    const fetchData = () => axios.get('https://testing.profectaperdana.com/api/job_vacancies')
-        .then(function (response) {
-            // handle success
-            setJob(response.data.data.data);
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-        })
-
+    const [pagination, setPagination] = useState({
+        currentPage: 0,
+        perPage: 0,
+        total: 0
+    });
+    const fetchData = async (pageNumber = 1) => {
+        const page = pageNumber ? pageNumber : pagination.currentPage;
+        await axios.get(`https://testing.profectaperdana.com/api/job_vacancies?page=${page}`)
+            .then(function (response) {
+                // handle success
+                setJob(response.data.data.data);
+                setPagination(() => ({
+                    currentPage: response.data.data.current_page,
+                    perPage: response.data.data.per_page,
+                    total: response.data.data.total
+                }));
+                console.log(pagination)
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+    }
+    const search = (e) => {
+        const keyword = e.target.value;
+        if (keyword != "") {
+            const result = job.filter(job => {
+                return job.title.toLowerCase().includes(keyword.toLowerCase());
+            });
+            setJob(result);
+        }
+        else {
+            fetchData();
+        }
+    }
     //useEffect
     useEffect(() => {
 
         //call function "fetchData"
         fetchData();
-
     }, []);
     return (
         <>
             <div className="service-area pt-120 pb-55">
                 <div className="container">
+                    <div className="row mb-100">
+                        <div className="col-xl-12">
+                            <div className="input-group input-group-lg mb-3">
+                                <button style={ { backgroundColor: "#84b544", color: "white" } } className="btn" id="basic-addon1"><i className='fa fa-search'></i></button>
+                                <input onChange={ search } type="text" className="form-control" placeholder="Search..." aria-label="Username" aria-describedby="basic-addon1" />
+                            </div>
+                        </div>
+                    </div>
                     <div className="row">
                         {
                             //cek apakah data ada
@@ -40,9 +71,7 @@ const ServiceArea = () => {
                                 ? job.map((item, i) => (
                                     <div key={ i } className="col-lg-4 col-md-6 rounded mb-50">
                                         <div className="tpservices rounded">
-                                            {/* <div className="tpservices__thumb">
-                                        <div className="fix"><a href="#"><img src={ item.img } alt="theme-pure" /></a></div>
-                                    </div> */}
+
                                             <div className="tpservices__content">
                                                 <i style={ { color: "#84b544" } } className="flaticon-group"></i>
 
@@ -71,7 +100,22 @@ const ServiceArea = () => {
                                         </div>
                                     </div>
                                 </div>
+
                         }
+                    </div>
+                    <div className="row">
+                        <div className="col-xl-12 text-center">
+                            <Pagination
+                                currentPage={ pagination.currentPage }
+                                perPage={ pagination.perPage }
+                                total={ pagination.total }
+                                onChange={ (pageNumber) => fetchData(pageNumber) }
+                                position="center"
+                                activeColor="#84b544"
+
+                            />
+                        </div>
+
                     </div>
                 </div>
             </div>
