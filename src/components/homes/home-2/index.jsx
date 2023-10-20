@@ -13,13 +13,16 @@ import CtaArea from "./cta-area";
 import BlogArea from "./blog-area";
 import FooterCounter from "./footer-counter";
 import Footer from "@/src/layout/footers/footer";
+import OnDevelopment from "@/src/pages/on-development";
 
 const HomeTwo = () => {
   return (
     <>
-      <HeaderTwo />
+      {/* <HeaderTwo /> */ }
+      <OnDevelopment />
+
       <SliderArea />
-      <AboutArea />
+      {/*  <AboutArea />
       <ServiceArea />
       <SupportArea />
       <FeatureArea />
@@ -30,7 +33,7 @@ const HomeTwo = () => {
       <CtaArea />
       <BlogArea />
       <FooterCounter />
-      <Footer style_2={true} />
+      <Footer style_2={true} /> */}
     </>
   );
 };

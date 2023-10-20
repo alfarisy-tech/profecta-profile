@@ -5,12 +5,16 @@ import SEO from "../common/seo";
 import HeaderOne from "../layout/headers/header";
 import TypeWriter from "typewriter-effect";
 import { color } from "framer-motion";
+import HeaderTwo from "../layout/headers/header-2";
+import SliderArea from "../components/homes/home-2/slider-area";
 
 const index = () => {
   return (
     <>
       <SEO pageTitle={ "Website is under developement" } />
       <HeaderOne />
+      {/* <SliderArea /> */ }
+
       <div id="smooth-wrapper error_page">
         <div id="smooth-content">
           <main>

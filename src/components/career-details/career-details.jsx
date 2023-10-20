@@ -44,12 +44,12 @@ const ServiceDetailsArea = () => {
                 <div className="tp-service-details-area pt-115 pb-115">
                     <div className="container">
                         <div className="row">
-                            <div className="col-xl-12 mb-20">
-                                <button onClick={ () => router.back() } className="btn btn-danger w-10 rounded" href="#"><i className="fal fa-long-arrow-left"></i> Back </button>
+                            <div className="col-xl-12 mb-20 ">
+                                <button onClick={ () => router.back() } className="btn shadow btn-danger w-10 rounded" href="#"><i className="fal fa-long-arrow-left"></i> Back </button>
                             </div>
                             <div className="col-xl-12">
                                 <div className="tp-service-overveiw-area mr-20">
-                                    <div className="tp-overview-details">
+                                    <div className="tp-overview-details shadow border-0" style={ { backgroundColor: "#f9fff4" } }>
                                         <p>Post : { job.date_post } | <span> Ended : { job.end_date }</span></p>
                                         <h2 className="overview-title">{ job.title }</h2>
 
@@ -94,7 +94,7 @@ const ServiceDetailsArea = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="tpservices__btn mt-50">
+                                    <div className="tpservices__btn mt-50 ">
                                         <Link href={ `/form-apply/${slugLink}` }>
                                             <button className="tp-btn w-100 rounded" href="#">Apply Now <i className="fal fa-long-arrow-right"></i></button>
                                         </Link>
