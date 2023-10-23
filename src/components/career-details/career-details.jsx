@@ -14,14 +14,20 @@ const ServiceDetailsArea = () => {
     const [job, setJob] = useState([]);
     const [description, setDescription] = useState([]);
     const [qualification, setQualification] = useState([]);
+    const [question, setQuestion] = useState([]);
+    const [answer, setAnswer] = useState([]);
     const fetchData = async () => await axios.get(`https://testing.profectaperdana.com/api/job_vacancies/${id}`)
         .then(function (response) {
             // handle success
             const jobVacancies = response.data.data;
+
             setJob(response.data.data);
             setSlug(response.data.data.position);
             setDescription(jobVacancies.job_description);
             setQualification(jobVacancies.job_qualification);
+            setQuestion(jobVacancies.job_question);
+            setAnswer(jobVacancies.job_question.quest_answer);
+            // console.log(jobVacancies.job_question);
         })
         .catch(function (error) {
             // handle error
@@ -86,6 +92,8 @@ const ServiceDetailsArea = () => {
                                                                 <li key={ i }>
                                                                     <i className="fal fa-check"></i>
                                                                     { item.name }
+
+
                                                                 </li>
                                                             ) }
                                                         </ul>
@@ -93,6 +101,7 @@ const ServiceDetailsArea = () => {
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                     <div className="tpservices__btn mt-50 ">
                                         <Link href={ `/form-apply/${slugLink}` }>

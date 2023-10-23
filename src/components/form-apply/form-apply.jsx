@@ -12,8 +12,8 @@ import axios from 'axios';
 
 const CheckoutArea = () => {
     const router = useRouter();
-    const [position, setPosition] = useState('');
     const [errors, setErrors] = useState([]);
+    const [position, setPosition] = useState('');
     const [btnLoading, setBtnLoading] = useState(false);
     const [registerData, setRegisterData] = useState({
         position: '',
@@ -30,11 +30,10 @@ const CheckoutArea = () => {
         major: '',
     });
     const [imageData, setImageData] = useState(null);
-
-
-
+    const [question, setQuestion] = useState([]);
     // ** USE EFFECT
     useEffect(() => {
+        fetchQuestion();
         if (router.query.slug) {
             const slugString = String(router.query.slug);
             const newPosition = slugString.split('-').join(' ').toLocaleUpperCase();
@@ -42,7 +41,14 @@ const CheckoutArea = () => {
             setRegisterData({ ...registerData, position: newPosition });
         }
     }, [router.query.slug]);
-
+    const fetchQuestion = async () => await axios.get(`https://testing.profectaperdana.com/api/job_vacancies/${router.query.slug}/question`)
+        .then(function (response) {
+            const question = response.data.data;
+            setQuestion(question.job_question);
+        })
+        .catch(function (error) {
+            // handle error
+        })
     // ** CHANGE HANDLER
     const changeHandler = (e) => {
         setRegisterData({ ...registerData, [e.target.name]: e.target.value });
@@ -50,6 +56,10 @@ const CheckoutArea = () => {
     const fileHandler = (e) => {
         const selectedFile = e.target.files[0];
         setImageData(selectedFile);
+    };
+    const answerHandler = (e) => {
+        setRegisterData({ ...registerData, [e.target.name]: e.target.value });
+        console.log(registerData);
     };
 
     // console.log(registerData);
@@ -98,6 +108,7 @@ const CheckoutArea = () => {
 
 
     };
+
 
     return (
         <>
@@ -240,6 +251,8 @@ const CheckoutArea = () => {
                                                     </div>
                                                 ) }
                                             </div>
+
+
                                             <div className="col-md-12 mb-30">
                                                 <label>Applications & CV <span className="required">* (PDF)</span></label>
                                                 <input autoComplete='off' value={ registerData.file } accept='application/pdf' onChange={ fileHandler } name='file' className='form-control' type="file" placeholder="" />
@@ -248,6 +261,35 @@ const CheckoutArea = () => {
                                                         { errors[0] }
                                                     </div>
                                                 ) }
+                                            </div>
+                                        </div>
+                                        <div className="col-md-12 mb-20">
+                                            <h6>Question: </h6>
+                                            <div className="row">
+                                                <div className="col-lg-12">
+                                                    <div className="tp-overview-feature">
+                                                        <ul>
+                                                            { question.map((item, i) => (
+                                                                <li key={ i }>
+                                                                    { i + 1 + '. ' }
+                                                                    { item.question }
+                                                                    <input type='text' value={ item.id } name={ `job_question[${i}][question]` } />
+                                                                    <ul>
+                                                                        { item.quest_answer.map((answerItem, j) => (
+                                                                            <li key={ j }>
+                                                                                <label>
+                                                                                    <input onChange={ answerHandler } type="radio" name={ `job_question[${i}][answer]` } value={ [answerItem.id, item.id] } />
+                                                                                    { ' ' + answerItem.answer } { answerItem.id }
+                                                                                </label>
+                                                                                <br /> {/* Menambahkan baris baru setelah setiap opsi jawaban */ }
+                                                                            </li>
+                                                                        )) }
+                                                                    </ul>
+                                                                </li>
+                                                            )) }
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
