@@ -104,7 +104,7 @@ const ServiceDetailsArea = () => {
 
                                     </div>
                                     <div className="tpservices__btn mt-50 ">
-                                        <Link href={ `/form-apply/${slugLink}` }>
+                                        <Link href={ `/form-apply/${job.unique_id}` }>
                                             <button className="tp-btn w-100 rounded" href="#">Apply Now <i className="fal fa-long-arrow-right"></i></button>
                                         </Link>
                                     </div>

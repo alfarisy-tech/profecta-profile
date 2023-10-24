@@ -65,7 +65,7 @@ const ServiceArea = () => {
                                                     <p>{ item.description }</p>
                                                 </div>
                                                 <div className="tpservices__btn shadow">
-                                                    <Link href={ `/career-detail/${item.id}` }>
+                                                    <Link href={ `/career-detail/${item.unique_id}` }>
                                                         <button className="tp-btn w-100 rounded" href="#">Job Details <i className="fal fa-long-arrow-right"></i></button>
                                                     </Link>
                                                 </div>
