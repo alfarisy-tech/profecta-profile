@@ -417,7 +417,7 @@ const CheckoutArea = () => {
                                                                     { i + 1 + ". " }
                                                                     { item.question }
                                                                     <input
-                                                                        type="text"
+                                                                        type="hidden"
                                                                         defaultValue={ item.id }
                                                                         name={ `job_question[${i}][question]` }
                                                                     />
@@ -434,7 +434,7 @@ const CheckoutArea = () => {
                                                                                         value={ answerItem.id }
                                                                                     />
                                                                                     { " " + answerItem.answer }{ " " }
-                                                                                    { answerItem.id }
+                                                                                    {/* { answerItem.id } */ }
                                                                                 </label>
                                                                                 <br />{ " " }
                                                                                 {/* Menambahkan baris baru setelah setiap opsi jawaban */ }
