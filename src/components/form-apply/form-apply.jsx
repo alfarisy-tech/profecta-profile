@@ -46,7 +46,7 @@ const CheckoutArea = () => {
                 const question = response.data.data;
                 setQuestion(question.job_question);
                 setPosition(question);
-                setRegisterData({ ...registerData, position: question.position });
+                setRegisterData({ ...registerData, position: question.id });
             })
             .catch(function (error) {
                 // handle error
@@ -67,13 +67,19 @@ const CheckoutArea = () => {
         }));
     };
 
-    // console.log(registerData);
-    // console.log(imageData);
+
 
     // ** SUBMIT HANDLER
     const submitHandler = async (e) => {
         e.preventDefault();
         setBtnLoading(true);
+        if (Object.entries(answer).length < question.length) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Please answer all the questions",
+            });
+        }
         const formData = new FormData();
 
         // Append registerData as a field named 'data'
@@ -82,8 +88,7 @@ const CheckoutArea = () => {
         // Append imageData as a field named 'image'
         formData.append("image", imageData);
         formData.append("response_question", JSON.stringify(answer));
-        console.log(answer);
-        // console.log(formData);
+
         await axios
             .post("https://testing.profectaperdana.com/api/job_vacancies", formData, {
                 //header
@@ -101,13 +106,19 @@ const CheckoutArea = () => {
                 router.push("/");
             })
             .catch((error) => {
-                // if (error.response.status === 421) {
-                //     Swal.fire({
-                //         icon: 'error',
-                //         title: 'Oops...',
-                //         text: 'The file must be a PDF',
-                //     });
-                // }
+                if (error.response.status === 421) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'The file must be a PDF',
+                    });
+                } else if (error.response.status === 423) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'May not apply for the same position twice',
+                    });
+                }
                 setErrors(error.response.data);
             })
             .finally(() => {
@@ -148,11 +159,19 @@ const CheckoutArea = () => {
                                                 <input
                                                     autoComplete="off"
                                                     readOnly
+                                                    className="form-control fw-bold text-uppercase"
+                                                    defaultValue={ position.position }
+                                                    type="text"
+                                                    placeholder=""
+                                                />
+                                                <input
+                                                    autoComplete="off"
+                                                    readOnly
                                                     name="position"
                                                     id="position"
                                                     className="form-control fw-bold text-uppercase"
-                                                    value={ position.position }
-                                                    type="text"
+                                                    defaultValue={ position.id }
+                                                    type="hidden"
                                                     placeholder=""
                                                 />
                                             </div>

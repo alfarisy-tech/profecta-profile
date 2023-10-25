@@ -59,7 +59,7 @@ const ServiceArea = () => {
                                     ? job.map((item, i) => (
                                         <div key={ i } className="col-lg-4 col-md-6 rounded mb-20" >
                                             <div className="tpservices rounded">
-                                                <div className="tpservices__content shadow" style={ { backgroundColor: "#f9fff4", height: "45vh" } }>
+                                                <div className="tpservices__content shadow overflow-auto p-5" style={ { backgroundColor: "#f9fff4", height: "45vh" } }>
                                                     <i style={ { color: "#84b544" } } className="flaticon-group"></i>
                                                     <h3 className="tpservices__title">{ item.position }</h3>
                                                     <p>{ item.description }</p>
