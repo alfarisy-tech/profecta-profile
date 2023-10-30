@@ -47,7 +47,7 @@ const ServiceDetailsArea = () => {
     return (
         <>
             { job ? (
-                <div className="tp-service-details-area pt-115 pb-115">
+                <div className="tp-service-details-area pt-40 pb-55">
                     <div className="container">
                         <div className="row">
                             <div className="col-xl-12 mb-20 ">
@@ -56,50 +56,36 @@ const ServiceDetailsArea = () => {
                             <div className="col-xl-12">
                                 <div className="tp-service-overveiw-area mr-20">
                                     <div className="tp-overview-details shadow border-0" style={ { backgroundColor: "#f9fff4" } }>
-                                        <p>Post : { job.date_post } | <span> Ended : { job.end_date }</span></p>
+                                        <p className='fs-6'>Post : { job.date_post } <span>| { job.end_date }</span> </p>
                                         <h2 className="overview-title">{ job.title }</h2>
-
-                                        <h4 >{ job.position }</h4>
-
-                                        <p>{ job.description }</p>
+                                        <h4 className='text-break'>{ job.position }</h4>
+                                        <p className='text-break'>{ job.description }</p>
                                         {/* <p>{ info_2 }</p> */ }
-                                        <div className="tp-overview-fea-list">
-                                            <h4>Job description: </h4>
-                                            <div className="row">
-                                                <div className="col-xl-6">
-                                                    <div className="tp-overview-feature">
-                                                        <ul>
-                                                            { description.map((item, i) =>
-                                                                <li key={ i }>
-                                                                    <i className="fal fa-check"></i>
-                                                                    { item.name }
-                                                                </li>
-                                                            ) }
-                                                        </ul>
-                                                    </div>
-                                                </div>
+                                        <h4>Job description: </h4>
 
-                                            </div>
+                                        <div className="tp-overview-feature">
+                                            <ul>
+                                                { description.map((item, i) =>
+                                                    <li key={ i }>
+                                                        <i className="fal fa-check"></i>
+                                                        <p className='text-break fw-bold'>{ item.name }</p>
+                                                    </li>
+                                                ) }
+                                            </ul>
+
+
                                         </div>
-                                        <div className="tp-overview-fea-list">
-                                            <h4>Qualification: </h4>
-                                            <div className="row">
+                                        <h4>Qualification: </h4>
 
-                                                <div className="col-xl-6">
-                                                    <div className="tp-overview-feature">
-                                                        <ul>
-                                                            { qualification.map((item, i) =>
-                                                                <li key={ i }>
-                                                                    <i className="fal fa-check"></i>
-                                                                    { item.name }
-
-
-                                                                </li>
-                                                            ) }
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div className="tp-overview-feature">
+                                            <ul>
+                                                { qualification.map((item, i) =>
+                                                    <li key={ i }>
+                                                        <i className="fal fa-check"></i>
+                                                        <p className='text-break fw-bold'>{ item.name }</p>
+                                                    </li>
+                                                ) }
+                                            </ul>
                                         </div>
 
                                     </div>

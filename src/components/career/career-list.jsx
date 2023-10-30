@@ -41,9 +41,9 @@ const ServiceArea = () => {
     return (
         <>
             {
-                <div className="service-area pt-120 pb-55">
+                <div className="service-area pt-40 pb-55">
                     <div className="container">
-                        <div className="row mb-100">
+                        <div className="row mb-50">
                             <div className="col-xl-12">
                                 <div className="input-group input-group-lg mb-3">
                                     <button style={ { backgroundColor: "#84b544", color: "white" } } className="btn" id="basic-addon1"><i className='fa fa-search'></i></button>
@@ -57,12 +57,12 @@ const ServiceArea = () => {
                                 job.length > 0
                                     //looping data "roles" dengan "map"
                                     ? job.map((item, i) => (
-                                        <div key={ i } className="col-lg-4 col-md-6 rounded mb-20" >
+                                        <div key={ i } className="col-lg-4 col-md-6 rounded mb-50">
                                             <div className="tpservices rounded">
-                                                <div className="tpservices__content shadow overflow-auto p-5" style={ { backgroundColor: "#f9fff4", height: "45vh" } }>
+                                                <div className="tpservices__content shadow" style={ { backgroundColor: "#f9fff4", height: "40vh" } }>
                                                     <i style={ { color: "#84b544" } } className="flaticon-group"></i>
                                                     <h3 className="tpservices__title">{ item.position }</h3>
-                                                    <p>{ item.description }</p>
+                                                    <p className='text-break'>{ item.description.slice(0, 150) + (item.description.length > 150 ? '...' : '') }</p>
                                                 </div>
                                                 <div className="tpservices__btn shadow">
                                                     <Link href={ `/career-detail/${item.unique_id}` }>
