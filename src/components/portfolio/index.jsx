@@ -7,12 +7,12 @@ import PortfolioArea from "./portfolio-area";
 const Portfolio = () => {
   return (
     <>
-      <HeaderOne />
+      {/* <HeaderOne /> */ }
       <main>
-      <Breadcrumb title="Portfolio" innertitle="Company Portfolio" />
-      <PortfolioArea />
+        <Breadcrumb title="Portfolio" innertitle="Portfolio" />
+        <PortfolioArea />
       </main>
-      <Footer />
+      {/* <Footer /> */ }
     </>
   );
 };

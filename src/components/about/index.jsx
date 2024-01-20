@@ -8,24 +8,27 @@ import OurHistory from "./our-history";
 import FeatureArea from "./feature-area";
 import BlogArea from "./blog-area";
 import Footer from "@/src/layout/footers/footer";
-import OnDevelopment from "@/src/pages/on-development";
-
+import OnDevelopment from "@/src/components/on-development";
 
 const About = () => {
   return (
     <>
-      {/* <HeaderOne /> */ }
-      {/* <Breadcrumb title="About" innertitle="Blog Grid Classic" /> */ }
-      <OnDevelopment />
-      {/* <AboutArea />
+      {/* <HeaderOne /> */}
+      <Breadcrumb
+        title='About'
+        innertitle='Profecta Perdana'
+      />
+      <AboutArea />
       <ServiceArea />
       <GallaryArea />
-      <OurHistory />
-      <FeatureArea />
-      <BlogArea />
-      <Footer /> */}
+      {/* <OurHistory /> */}
+      {/* <FeatureArea /> */}
+      {/* <BlogArea /> */}
+      <OnDevelopment />
+
+      {/* <Footer /> */}
     </>
   );
 };
 
-export default About; 
+export default About;

@@ -467,8 +467,8 @@ const CheckoutArea = () => {
                             </form>
                         </div>
                     </div>
-                </div >
-            </section >
+                </div>
+            </section>
         </>
     );
 };

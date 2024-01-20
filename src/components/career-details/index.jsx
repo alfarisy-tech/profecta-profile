@@ -8,10 +8,10 @@ import HeaderOne from "@/src/layout/headers/header";
 const ServiceDetails = () => {
   return (
     <>
-      <HeaderOne />
+      {/* <HeaderOne /> */ }
       <Breadcrumb title="Career Details" innertitle="Career Details" />
       <CareerDetail />
-      <Footer />
+      {/* <Footer /> */ }
     </>
   );
 };

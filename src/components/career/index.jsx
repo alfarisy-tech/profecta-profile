@@ -8,10 +8,10 @@ import Footer from "@/src/layout/footers/footer";
 const Service = () => {
   return (
     <>
-      <HeaderOne />
+      {/* <HeaderOne /> */ }
       <Breadcrumb title="Career" innertitle="Available Job(s)" />
       <CareerList />
-      <Footer />
+      {/* <Footer /> */ }
     </>
   );
 };

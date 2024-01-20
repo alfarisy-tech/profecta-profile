@@ -5,16 +5,18 @@ import ServiceArea from "./service-area";
 import FeatureArea from "./feature-area";
 import PricingArea from "./pricing-area";
 import Footer from "@/src/layout/footers/footer";
+import OnDevelopment from "@/src/components/on-development";
 
 const Service = () => {
   return (
     <>
-      <HeaderOne />
+      {/* <HeaderOne /> */ }
       <Breadcrumb title="Service" innertitle="Our Services" />
-      <ServiceArea />
-      <FeatureArea />
-      <PricingArea />
-      <Footer />
+      <OnDevelopment />
+      {/* <ServiceArea /> */ }
+      {/* <FeatureArea /> .*/ }
+      {/* <PricingArea /> */ }
+      {/* <Footer /> */ }
     </>
   );
 };

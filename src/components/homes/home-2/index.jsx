@@ -21,7 +21,7 @@ const HomeTwo = () => {
       {/* <HeaderTwo /> */ }
       <OnDevelopment />
 
-      <SliderArea />
+      {/* <SliderArea /> */ }
       {/*  <AboutArea />
       <ServiceArea />
       <SupportArea />

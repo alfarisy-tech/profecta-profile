@@ -1,29 +1,38 @@
 import Link from "next/link";
-import React from "react";
-
-const category_data = [
-  { id: 1, category: "Business", item: "26" },
-  { id: 2, category: "Consultant", item: "30" },
-  { id: 3, category: "Creative", item: "71" },
-  { id: 4, category: "UI/UX", item: "56" },
-  { id: 5, category: "Technology", item: "60" },
-];
+import React, { useRef, useState, useEffect } from 'react';
+import axios from 'axios';
 
 const Category = () => {
+  const [dataCategory, setDataCategory] = useState([]);
+  const fetchData = async () => {
+    await axios.get(`https://testing.profectaperdana.com/api/blog/categories`)
+      .then(function (response) {
+        // handle success
+        setDataCategory(response.data.data);
+
+      })
+      .catch(function (error) {
+        // handle error
+      })
+
+  }
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <>
       <div className="sidebar__widget mb-40">
         <h3 className="sidebar__widget-title">Category</h3>
         <div className="sidebar__widget-content">
           <ul>
-            {category_data.map((item, i) => (
-              <li key={i}>
+            { dataCategory.map((item, i) => (
+              <li key={ i }>
                 <Link href="/blog">
-                  {item.category}
-                  <span>{item.item}</span>
+                  { item.category.name }
+                  <span>{ item.count }</span>
                 </Link>
               </li>
-            ))}
+            )) }
           </ul>
         </div>
       </div>

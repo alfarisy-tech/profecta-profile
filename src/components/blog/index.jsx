@@ -7,12 +7,10 @@ import Footer from "@/src/layout/footers/footer";
 const Blog = () => {
   return (
     <>
-      <HeaderOne />
       <main>
-        <Breadcrumb title="Blog"  innertitle="News Feeds" />
+        <Breadcrumb title="Blog" innertitle="News Feeds" />
         <PostboxArea />
       </main>
-      <Footer />
     </>
   );
 };
